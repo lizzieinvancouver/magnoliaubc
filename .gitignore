@@ -1,0 +1,14 @@
+*.aux
+*.out
+*.log
+*.bbl
+*.blg
+*.syntex.gz
+*.synctex.gz
+*.Rhistory
+*.DS_Store
+*.Rapp.history
+*.Rhistory
+*.Rdata
+
+notposting/
