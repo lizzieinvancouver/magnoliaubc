@@ -12,3 +12,4 @@
 *.Rdata
 
 notposting/
+.Rproj.user

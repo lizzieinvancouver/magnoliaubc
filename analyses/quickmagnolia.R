@@ -8,7 +8,7 @@
 rm(list=ls()) 
 options(stringsAsFactors = FALSE)
 
-setwd("~/Documents/git/projects/misc/miscmisc/magnoliaubc/analyses")
+# setwd("~/Documents/git/projects/misc/miscmisc/magnoliaubc/analyses")
 
 ## packages
 library(ggplot2)
