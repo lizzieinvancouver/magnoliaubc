@@ -38,6 +38,8 @@
 # 23/1/2023
 # JUSTIN's  efforts
 
+rm(list = ls())
+
 # trying to turn all the columns into one column for easier DOY conversion
 library(tidyverse)
 # install.packages("reshape")
@@ -82,7 +84,6 @@ magw_doy <- magwide %>%
          peak.bloom = yday(Peak.bloom),
          tepal.drop.first = yday(First.tepal.drop),
          tepal.drop.last = yday(Last.tepal.drop))
-
 
 # now adding in copeland court
 copeland$First.bud.colour <- paste(copeland$year, copeland$First.bud.colour, sep = "/")
@@ -211,7 +212,7 @@ campbellavg <- campbellii %>%
 campbell.long <- campbellavg %>%
   reshape2::melt(id.vars = "year",
        var = "event")%>%
-  mutate(species = "campbellii")
+  mutate(species = "M. campbellii")
 
 dawsonavg <- dawsoniana %>%
   group_by(year) %>%
@@ -223,7 +224,7 @@ dawsonavg <- dawsoniana %>%
 dawson.long <- campbellavg %>%
   reshape2::melt(id.vars = "year",
                  var = "event") %>%
-  mutate(species = "dawsoniana")
+  mutate(species = "M. dawsoniana")
 
 sargentavg <- sargentiana %>%
   group_by(year) %>%
@@ -235,7 +236,7 @@ sargentavg <- sargentiana %>%
 sargent.long <- sargentavg %>%
   reshape2::melt(id.vars = "year",
                  var = "event") %>%
-  mutate(species = "sargentiana")
+  mutate(species = "M. sargentiana")
 
 sprengeravg <- sprengeri %>%
   group_by(year) %>%
@@ -247,7 +248,7 @@ sprengeravg <- sprengeri %>%
 sprenger.long <- sprengeravg %>%
   reshape2::melt(id.vars = "year",
                  var = "event") %>%
-  mutate(species = "sprengeri")
+  mutate(species = "M. sprengeri")
 
 miscselect <- misc %>%
   select(c(5,4,13,14,15,16,17))
@@ -255,7 +256,8 @@ misc.long <- miscselect %>%
   reshape2::melt(id.vars = c("year","Name"),
                  var = "event") %>%
   mutate(species = Name)%>%
-  select(!Name)
+  select(!Name) %>%
+  drop_na(year)
 
 # mag_group <- rbind(campbell.long,
 #                    dawson.long,
@@ -278,7 +280,10 @@ mag_group2 <- rbind(campbell.long,
                    dawson.long,
                    sargent.long,
                    sprenger.long)
+mag_group2 <- mag_group2 %>%
+  drop_na(year)
 
+# Plotting the four grouped species
 mag_plot2 <- mag_group2 %>%
   ggplot(aes(x = year,
              y = value,
@@ -287,7 +292,16 @@ mag_plot2 <- mag_group2 %>%
   labs(x = "Year",
        y = "Day of phenological event occurring") +
   theme_clean() +
-  facet_grid(species ~ .)
+  facet_wrap(species ~ ., ncol = 2) +
+  scale_x_continuous(labels = c(1991:2009), breaks = c(1991:2009)) +
+  scale_color_hue(name = "Phenological event",
+                  labels = c("First bud colour",
+                             "Anthesis",
+                             "Peak bloom",
+                             "First tepal drop",
+                             "Last tepal drop")) +
+  theme(axis.text.x = element_text(angle = 90),
+        strip.text.x = element_text(face = "italic"))
 mag_plot2
 
 # Now I can tackle the miscellaneous species
@@ -299,5 +313,14 @@ misc_plot <- misc.long %>%
   labs(x = "Year",
        y = "Day of phenological event occurring") +
   theme_clean() +
-  facet_grid(species ~ .)
+  facet_wrap(species ~ ., ncol = 3) +
+  scale_x_continuous(labels = c(1991:2009), breaks = c(1991:2009)) +
+  scale_color_hue(name = "Phenological event",
+                  labels = c("First bud colour",
+                                "Anthesis",
+                                "Peak bloom",
+                                "First tepal drop",
+                                "Last tepal drop")) +
+  theme(axis.text.x = element_text(angle = 90),
+        strip.text.x = element_text(face = "italic"))
 misc_plot
