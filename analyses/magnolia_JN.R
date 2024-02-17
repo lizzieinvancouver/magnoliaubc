@@ -212,7 +212,8 @@ campbellavg <- campbellii %>%
 campbell.long <- campbellavg %>%
   reshape2::melt(id.vars = "year",
        var = "event")%>%
-  mutate(species = "M. campbellii")
+  mutate(species = "M. campbellii") %>%
+  drop_na(year)
 
 dawsonavg <- dawsoniana %>%
   group_by(year) %>%
@@ -224,7 +225,8 @@ dawsonavg <- dawsoniana %>%
 dawson.long <- campbellavg %>%
   reshape2::melt(id.vars = "year",
                  var = "event") %>%
-  mutate(species = "M. dawsoniana")
+  mutate(species = "M. dawsoniana")  %>%
+  drop_na(year)
 
 sargentavg <- sargentiana %>%
   group_by(year) %>%
@@ -236,7 +238,8 @@ sargentavg <- sargentiana %>%
 sargent.long <- sargentavg %>%
   reshape2::melt(id.vars = "year",
                  var = "event") %>%
-  mutate(species = "M. sargentiana")
+  mutate(species = "M. sargentiana")  %>%
+  drop_na(year)
 
 sprengeravg <- sprengeri %>%
   group_by(year) %>%
@@ -248,7 +251,8 @@ sprengeravg <- sprengeri %>%
 sprenger.long <- sprengeravg %>%
   reshape2::melt(id.vars = "year",
                  var = "event") %>%
-  mutate(species = "M. sprengeri")
+  mutate(species = "M. sprengeri")  %>%
+  drop_na(year)
 
 miscselect <- misc %>%
   select(c(5,4,13,14,15,16,17))
@@ -324,3 +328,73 @@ misc_plot <- misc.long %>%
   theme(axis.text.x = element_text(angle = 90),
         strip.text.x = element_text(face = "italic"))
 misc_plot
+
+# Aligning with historic climate data?
+# climdat <- read_csv("analyses/input/ubcClimateDaily_1991_1995.csv") #UBC totem field station only has up to 1995?
+# 
+# climdat_filter <- climdat %>% #only months Feb to May are needed
+#   mutate(date = ymd(LOCAL_DATE)) %>%
+#   filter(date >= make_date(year((date)), 2, 1),
+#          date <= make_date(year((date)), 5, 31))
+
+# Trying it out with 12000 rows of climate data from vancouver.weatherstats at Vancouver International Airport
+vandat <- read_csv("analyses/input/vanDailyWeather.csv")
+
+range <- interval(as.POSIXct("1991-01-31"),
+                  as.POSIXct("2023-05-31"))
+
+vandat_filt <- vandat %>% #only months Feb to May are needed
+  mutate(date2 = ymd(date)) %>%
+  filter(date2 >= make_date(year((date2)), 2, 1),
+         date2 <= make_date(year((date2)), 5, 31)) %>%
+  filter(date2 %within% range) %>%
+  mutate(DOY = yday(date2))
+
+vandat_sel <- vandat_filt %>%
+  select(date2, DOY, max_temperature, avg_temperature, min_temperature, heatdegdays, growdegdays_5, growdegdays_7, growdegdays_10) %>%
+  mutate(year = year(date2),
+         month = month(date2))
+# I wanted to keep sunrise sunset data but it's not complete
+
+# Make mean average spring temperature according to the historic min and max phenology DOYs for each species?
+# Luckily for me, DOY range for the four grouped cultivars (campbellii, etc.) are always within ~60 to ~140 to let's filter for DOY 59 to 141
+vandat_maggroup_year <- vandat_sel %>%
+  filter(DOY %in% (59:141)) %>%
+  group_by(year) %>%
+  summarise_all(mean) %>%
+  select(-date2, -DOY, -month)
+# Now we have average temperature between Feb and May for every year
+
+# Worthwhile to do monthly temperature? Then we can overlay annual temperature patterns over each year to see if the phenological event lines up with the temeperature of the month it occurs in?
+vandat_maggroup_month <- vandat_sel %>%
+  filter(DOY %in% (59:141)) %>%
+  group_by(year, month) %>%
+  summarise_all(mean) %>%
+  select(-date2, -DOY)
+
+# Just to look; spring temps across the year
+yeartemp_plot <- vandat_maggroup_year %>%
+  ggplot(aes(x = year,
+             y = avg_temperature))+
+  geom_line(linewidth = 1) +
+  labs(x = "Year",
+       y = "Average temperature (degC)") +
+  theme_clean()
+yeartemp_plot
+
+# monthly variation per year
+monthtemp_plot <- vandat_maggroup_month %>%
+  ggplot(aes(x = month,
+             y = avg_temperature))+
+  geom_line(linewidth = 1) +
+  labs(x = "Month",
+       y = "Average temperature (degC)") +
+  theme_clean() +
+  facet_wrap(year ~.)
+monthtemp_plot
+
+# Adding mean spring temperature to the magnolia plots on a second axis?
+# Can add the yearly temp data to each of the species' data frames as a new column
+vandat_sargent <- vandat_maggroup_year %>%
+  filter(year %in% (1991:2009))
+
