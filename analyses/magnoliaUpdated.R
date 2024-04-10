@@ -178,8 +178,11 @@ allbind$Name <- gsub("Magnolia", "M.", allbind$Name)
 # <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
 # Time for some simple visualization
 
-sprengeri <- allbind %>%
+sprengericult <- allbind %>%
   filter(grepl("sprengeri",Name))
+sprengeri <- allbind %>%
+  filter(Name == "M. sprengeri")
+
 
 # # Saving the stuff here in markdown for later
 # sprengeravg <- sprengeri %>%
@@ -196,7 +199,7 @@ sprengeri <- allbind %>%
 #   mutate(species = "M. sprengeri")  %>%
 #   drop_na(year)
 
-sprengeri %>% ggplot(aes(x = year,
+sprengericult %>% ggplot(aes(x = year,
                          y = DOY,
                          colour = event)) +
   geom_line(linewidth = 1) +
@@ -204,3 +207,15 @@ sprengeri %>% ggplot(aes(x = year,
        y = "Day of occurrence") +
   theme_clean() +
   facet_wrap(Name ~ .)
+
+sprengeri %>% ggplot(aes(x = year,
+                             y = DOY,
+                             colour = event)) +
+  geom_line(linewidth = 1) +
+  labs(x = "Year",
+       y = "Day of occurrence") +
+  theme_clean() +
+  facet_wrap(Name ~ .) +
+  scale_x_continuous(labels = c(1991:2023), breaks = c(1991:2023)) +
+  theme(axis.text.x = element_text(angle = 90),
+        strip.text.x = element_text(face = "italic"))
