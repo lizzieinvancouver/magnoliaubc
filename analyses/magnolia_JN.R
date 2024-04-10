@@ -42,10 +42,10 @@ rm(list = ls())
 
 # trying to turn all the columns into one column for easier DOY conversion
 library(tidyverse)
-# install.packages("reshape")
-library(reshape)
+library(reshape2)
 library(lubridate)
 library(ggthemes)
+library(viridis)
 
 
 magnolia <- read.csv("analyses/input/Magnolia Phenology Study to 2013.csv")
@@ -398,3 +398,46 @@ monthtemp_plot
 vandat_sargent <- vandat_maggroup_year %>%
   filter(year %in% (1991:2009))
 
+# <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
+# Making floating bars to represent min and max temperatures in spring for each year
+# vandat_maggroup_year is too long of a name so let me just shorten it
+tempdat <- vandat_maggroup_year %>%
+  select(1:4) %>%
+  tibble::rownames_to_column(var = "var")
+
+tempplot <- tempdat %>%
+  ggplot(aes(x = as.factor(year),
+             ymin = `min_temperature`,
+             ymax = `max_temperature`,
+             lower = `min_temperature`,
+             upper = `max_temperature`,
+             middle = `avg_temperature`))+
+  geom_boxplot(stat = "identity",
+               width = 0.5)+ 
+  labs(x = "Year",
+       y = "Spring Temperature (degC)")+
+  theme_clean() +
+  theme(axis.text.x = element_text(angle = 270))+
+  ylim(0,20)
+tempplot
+
+sargplot <- sargent.long %>%
+  ggplot(aes(x = year,
+             y = value,
+             colour = event))+
+  geom_line(linewidth=1)+
+  labs(x = "Year",
+       y = "DOY of phenological event") +
+  theme_clean()+
+  scale_color_viridis()+
+  scale_x_continuous(labels = c(1991:2009), breaks = c(1991:2009)) +
+  scale_color_hue(name = "Phenological event",
+                  labels = c("First bud colour",
+                             "Anthesis",
+                             "Peak bloom",
+                             "First tepal drop",
+                             "Last tepal drop")) +
+  theme(axis.text.x = element_text(angle = 270),
+        strip.text.x = element_text(face = "italic"))
+sargplot  
+  
