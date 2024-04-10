@@ -441,3 +441,111 @@ sargplot <- sargent.long %>%
         strip.text.x = element_text(face = "italic"))
 sargplot  
   
+# <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
+## some f(x)s to help calculate GDD
+## this f(x) makes a column which zeroes out all data
+# below your threshold temperature
+
+makethreshold.data <- function(dater, temp.col, thresh){ 
+  ifelse(dater[[temp.col]]>thresh,
+         (dater[[temp.col]]-thresh), 0)
+}
+
+## this f(x) adds up gdd
+## requires data ordered by doy (I do this in the loop below)
+## this f(x) returns the value while treating NA as zeroes
+# needstartdate is when you require data to start that year, otherwise it returns NA
+# for example, 5 means you need data that starts before 5 January to actually count
+makegdd.data.skipNA <- function(dater, gdd.col, doy.col, startdate, needstartdate){
+  saveme <- c()
+  for(i in 1:nrow(dater)){
+    # deal with cases where the data start after Jan 1
+    if (dater[[doy.col]][1]>needstartdate) saveme[i] <- NA
+    else
+      # deal with cases where the entire column is NA
+      if (sum(is.na(dater[[gdd.col]]))==length(dater[[gdd.col]])) saveme[i] <- NA
+      else
+        # okay, finally calculate the GDD
+        if (dater[[doy.col]][i]==startdate) saveme[i] <- (dater[[gdd.col]][i])
+        else
+          # if a cell is NA, just add 0 instead of the cell
+          if (is.na(dater[[gdd.col]][i])) saveme[i] <- (0+saveme[i-1])
+          else
+            saveme[i] <- (dater[[gdd.col]][i]+saveme[i-1])
+  }
+  return(saveme)
+}
+
+
+countNA.pergdd <- function(dater, gdd.col, doy.col, startdate, needstartdate){
+  saveme <- c()
+  for(i in 1:nrow(dater)){
+    dater <- dater[order(as.numeric(dater[[doy.col]])),]
+    if (dater[[doy.col]][1]>needstartdate) saveme[i] <- NA
+    else 
+      if  (sum(is.na(dater[[gdd.col]]))==length(dater[[gdd.col]])) saveme[i] <- NA
+      else
+        saveme[i] <- sum(is.na(dater[[gdd.col]][which(dater[[doy.col]]<(i+1))]))
+  }
+  return(saveme)
+}
+
+
+
+##
+## f(x)s that I never got to run
+## I tried to count NA and make cumulative GDD in one f(x)
+##
+
+makegdd.data.skipNA.arghh <- function(dater, gdd.col, doy.col, startdate, needstartdate){
+  saveme <- c()
+  nacount <- c()
+  for(i in 1:nrow(dater)){
+    if (dater[[doy.col]][1]>needstartdate) saveme[i] <- NA
+    else 
+      if (is.na(unique(dater[[gdd.col]][i]))==TRUE) saveme[i] <- NA
+      else
+        
+        # subsetme <- dater[which(dater[[doy.col]]<(i+1)),]
+        # nacount[i] <- sum(is.na(subsetme[[gdd.col]]))
+        
+        if (is.na(dater[[gdd.col]][i])==TRUE) saveme[i] <- (0+saveme[i-1])
+        else
+          if (dater[[doy.col]][i]==startdate) saveme[i] <- (dater[[gdd.col]][i])
+          else
+            saveme[i] <- (dater[[gdd.col]][i]+saveme[i-1])
+          nacount[i] <- (sum(is.na(subsetme[[gdd.col]][i]))+nacount[i-1])
+  }
+  return(cbind(saveme, nacount))
+}
+# <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
+
+# 9 April 2024 now adding the new data from Adriana
+
+d2010 <- read_csv("analyses/input/data2010.csv")
+d2011 <- read_csv("analyses/input/data2011.csv")
+d2012 <- read_csv("analyses/input/data2012.csv")
+d2013 <- read_csv("analyses/input/data2013.csv")
+d2014 <- read_csv("analyses/input/data2014.csv")
+d2015 <- read_csv("analyses/input/data2015.csv")
+d2016 <- read_csv("analyses/input/data2016.csv")
+d2017 <- read_csv("analyses/input/data2017.csv")
+d2018 <- read_csv("analyses/input/data2018.csv")
+d2019 <- read_csv("analyses/input/data2019.csv")
+# d2020 <- read_csv("analyses/input/data2020.csv")
+d2021 <- read_csv("analyses/input/data2021.csv")
+d2022 <- read_csv("analyses/input/data2022.csv")
+d2023 <- read_csv("analyses/input/data2023.csv")
+
+dto23 <- rbind(d2010, d2011, d2012, d2013, d2014,
+               d2015, d2016, d2017, d2018, d2019,
+               d2021, d2022, d2023)
+dlong <- melt(dto23, id.vars=c("Ref. No.","Location","Name","Accession Number","Status in 2024","Comments"),
+                var = "event")
+dlong$value <- as.Date(dlong$value, format = "%Y-%m-%d")
+ddate <- dlong %>%
+  mutate(DOY = yday(value)) %>%
+  filter(!is.na(value)) %>%
+  select(-5,-6)
+
+
