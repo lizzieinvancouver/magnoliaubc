@@ -156,7 +156,7 @@ copelandlong <- copeland %>%
 # Formatting to date
 copelandlong <- copelandlong %>%
   filter(!grepl("/NA",value))
-copelandlong$value <- as.Date(copelandlong$value, format = "%Y/%m/%d")
+copelandlong$value <- as.Date(copelandlong$value, format = "%Y/%d/%m")
 
 # Adding DOY and clearing NAs
 copelanddate <- copelandlong %>%
@@ -178,12 +178,22 @@ allbind$Name <- gsub("Magnolia", "M.", allbind$Name)
 # <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
 # Time for some simple visualization
 
-sprengericult <- allbind %>%
-  filter(grepl("sprengeri",Name))
+# diva <- allbind %>%
+#   filter(grepl("1982-0954.03",`Accession Number`))
+# diva2 <- allbind %>%
+#   filter(grepl("Copeland",Name))
+
+# Magnolia sprengeri and cultivars <><><><><><><><><><><><><><><><><><><><><><><
 sprengeri <- allbind %>%
-  filter(Name == "M. sprengeri")
+  filter(grepl("sprengeri",Name))
 
+sprengeri_cult <- sprengeri %>%
+  filter(grepl("'",Name))
 
+sprengeri_spec <- sprengeri %>%
+  filter(!grepl("'",Name))
+
+# # Averaging by species?
 # # Saving the stuff here in markdown for later
 # sprengeravg <- sprengeri %>%
 #   group_by(year) %>%
@@ -199,23 +209,226 @@ sprengeri <- allbind %>%
 #   mutate(species = "M. sprengeri")  %>%
 #   drop_na(year)
 
-sprengericult %>% ggplot(aes(x = year,
-                         y = DOY,
-                         colour = event)) +
-  geom_line(linewidth = 1) +
-  labs(x = "Year",
-       y = "Day of occurrence") +
-  theme_clean() +
-  facet_wrap(Name ~ .)
+sprenger_spec_label <- c("22"="M. sprengeri")
 
-sprengeri %>% ggplot(aes(x = year,
+sprengeri_spec %>% ggplot(aes(x = year,
                              y = DOY,
                              colour = event)) +
   geom_line(linewidth = 1) +
   labs(x = "Year",
        y = "Day of occurrence") +
   theme_clean() +
-  facet_wrap(Name ~ .) +
+  facet_wrap(`Ref. No.` ~ ., labeller = as_labeller(sprenger_spec_label)) +
+  scale_x_continuous(labels = c(1991:2023), breaks = c(1991:2023)) +
+  theme(axis.text.x = element_text(angle = 90),
+        strip.text.x = element_text(face = "italic"))
+
+sprenger_cult_label <- c("2"="M. sprengeri 'Diva'",
+                         "3"="M. sargentiana 'Blood Moon' on M. sprengeri",
+                         "22"="M. sprengeri",
+                         "34"="M. sprengeri 'Claret Cup'",
+                         "53"="M. sprengeri 'Wakehurst'",
+                         "78"="M. sprengeri 'Eric Savill'")
+
+sprengeri_cult %>% ggplot(aes(x = year,
+                              y = DOY,
+                              colour = event)) +
+  geom_line(linewidth = 1) +
+  labs(x = "Year",
+       y = "Day of occurrence") +
+  theme_clean() +
+  facet_grid(`Ref. No.` ~ .,labeller = as_labeller(sprenger_cult_label))+
+  theme(strip.text.y.right = element_text(angle = 0)) +
+  scale_x_continuous(labels = c(1991:2023), breaks = c(1991:2023)) +
+  theme(axis.text.x = element_text(angle = 90),
+        strip.text.x = element_text(face = "italic"))
+# <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
+
+# Magnolia campbellii and cultivars <><><><><><><><><><><><><><><><><><><><><><>
+campbellii <- allbind %>%
+  filter(grepl("campbellii",Name))
+
+campbellii_cult <- campbellii %>%
+  filter(grepl("'",Name))
+
+campbellii_spec <-campbellii %>%
+  filter(!grepl("'",Name))
+
+# All M. campbellii
+campbellii %>% ggplot(aes(x = year,
+                             y = DOY,
+                             colour = event)) +
+  geom_line(linewidth = 1) +
+  geom_point()+
+  labs(x = "Year",
+       y = "Day of occurrence") +
+  theme_clean() +
+  facet_grid(`Ref. No.` ~ .) +
+  theme(strip.text.y.right = element_text(angle = 0)) +
+  scale_x_continuous(labels = c(1991:2023), breaks = c(1991:2023)) +
+  theme(axis.text.x = element_text(angle = 90),
+        strip.text.x = element_text(face = "italic"))
+
+campbell_spec_label <- c("27"="M. campbellii",
+                      "28"="M. campbellii",
+                      "44"="M. campbellii",
+                      "50"="M. campbellii",
+                      "67"="M. campbellii",
+                      "77"="M. campbellii")
+
+# All campbellii species individuals
+campbellii_spec %>% ggplot(aes(x = year,
+                          y = DOY,
+                          colour = event)) +
+  geom_line(linewidth = 1) +
+  geom_point()+
+  labs(x = "Year",
+       y = "Day of occurrence") +
+  theme_clean() +
+  facet_grid(`Ref. No.` ~ .,labeller = as_labeller(campbell_spec_label)) +
+  theme(strip.text.y.right = element_text(angle = 0)) +
+  scale_x_continuous(labels = c(1991:2023), breaks = c(1991:2023)) +
+  theme(axis.text.x = element_text(angle = 90),
+        strip.text.x = element_text(face = "italic"))
+
+campbell_cult_label <- c("6"="M. campbellii 'Borde Hill'",
+                    "7"="M. campbellii 'Lanarth'",
+                    "29"="M. campbellii 'Ethel Hillier'",
+                    "58"="M. campbellii 'Landicla'",
+                    "80"="M. campbellii 'Betty Jessel'")
+
+# All campbellii cultivar individuals
+campbellii_cult %>% ggplot(aes(x = year,
+                          y = DOY,
+                          colour = event)) +
+  geom_line(linewidth = 1) +
+  geom_point()+
+  labs(x = "Year",
+       y = "Day of occurrence") +
+  theme_clean() +
+  facet_grid(`Ref. No.` ~ .,labeller = as_labeller(campbell_names)) +
+  theme(strip.text.y.right = element_text(angle = 0)) +
+  scale_x_continuous(labels = c(1991:2023), breaks = c(1991:2023)) +
+  theme(axis.text.x = element_text(angle = 90),
+        strip.text.x = element_text(face = "italic"))
+# <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
+
+# Magnolia dawsoniana and cultivars <><><><><><><><><><><><><><><><><><><><><><>
+dawsoniana <- allbind %>%
+  filter(grepl("dawsoniana",Name))
+
+dawsoniana_cult <- dawsoniana %>%
+  filter(grepl("'",Name))
+
+dawsoniana_spec <- dawsoniana %>%
+  filter(!grepl("'",Name))
+
+# All M. campbellii
+dawsoniana %>% ggplot(aes(x = year,
+                          y = DOY,
+                          colour = event)) +
+  geom_line(linewidth = 1) +
+  geom_point()+
+  labs(x = "Year",
+       y = "Day of occurrence") +
+  theme_clean() +
+  facet_grid(`Ref. No.` ~ .) +
+  theme(strip.text.y.right = element_text(angle = 0)) +
+  scale_x_continuous(labels = c(1991:2023), breaks = c(1991:2023)) +
+  theme(axis.text.x = element_text(angle = 90),
+        strip.text.x = element_text(face = "italic"))
+
+dawson_spec_label <- c("12"="M. dawsoniana")
+
+# All dawsoniana species individuals
+dawsoniana_spec %>% ggplot(aes(x = year,
+                               y = DOY,
+                               colour = event)) +
+  geom_line(linewidth = 1) +
+  geom_point()+
+  labs(x = "Year",
+       y = "Day of occurrence") +
+  theme_clean() +
+  facet_grid(`Ref. No.` ~ .,labeller = as_labeller(dawson_spec_label)) +
+  theme(strip.text.y.right = element_text(angle = 0)) +
+  scale_x_continuous(labels = c(1991:2023), breaks = c(1991:2023)) +
+  theme(axis.text.x = element_text(angle = 90),
+        strip.text.x = element_text(face = "italic"))
+
+dawson_cult_label <- c("16"="M. dawsoniana 'Chyverton Red'",
+                  "54"="M. dawsoniana 'Barbara Cook'",
+                  "63"="M. dawsoniana 'Clarke'")
+
+# All dawsoniana cultivar individuals
+dawsoniana_cult %>% ggplot(aes(x = year,
+                               y = DOY,
+                               colour = event)) +
+  geom_line(linewidth = 1) +
+  geom_point()+
+  labs(x = "Year",
+       y = "Day of occurrence") +
+  theme_clean() +
+  facet_grid(`Ref. No.` ~ .,labeller = as_labeller(dawson_cult_label )) +
+  theme(strip.text.y.right = element_text(angle = 0)) +
+  scale_x_continuous(labels = c(1991:2023), breaks = c(1991:2023)) +
+  theme(axis.text.x = element_text(angle = 90),
+        strip.text.x = element_text(face = "italic"))
+# <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
+
+unique(allbind$Name)
+
+# Magnolia misc species and cultivars <><><><><><><><><><><><><><><><><><><><><>
+misc <- allbind %>%
+  filter(!grepl("campbellii",Name)) %>%
+  filter(!grepl("sprengeri",Name)) %>%
+  filter(!grepl("dawsoniana",Name))
+
+misc_cult <- misc %>%
+  filter(grepl("'",Name))
+
+misc_spec <- misc %>%
+  filter(!grepl("'",Name))
+
+misc %>% ggplot(aes(x = year,
+                         y = DOY,
+                         colour = event)) +
+  geom_line(linewidth = 1) +
+  geom_point()+
+  labs(x = "Year",
+       y = "Day of occurrence") +
+  theme_clean() +
+  facet_grid(`Ref. No.` ~ .) +
+  theme(strip.text.y.right = element_text(angle = 0)) +
+  scale_x_continuous(labels = c(1991:2023), breaks = c(1991:2023)) +
+  theme(axis.text.x = element_text(angle = 90),
+        strip.text.x = element_text(face = "italic"))
+
+misc_spec %>% ggplot(aes(x = year,
+                               y = DOY,
+                               colour = event)) +
+  geom_line(linewidth = 1) +
+  geom_point()+
+  labs(x = "Year",
+       y = "Day of occurrence") +
+  theme_clean() +
+  facet_grid(`Ref. No.` ~ .) +
+  theme(strip.text.y.right = element_text(angle = 0)) +
+  scale_x_continuous(labels = c(1991:2023), breaks = c(1991:2023)) +
+  theme(axis.text.x = element_text(angle = 90),
+        strip.text.x = element_text(face = "italic"))
+
+# ,labeller = as_labeller(dawson_spec_label)
+
+misc_cult %>% ggplot(aes(x = year,
+                         y = DOY,
+                         colour = event)) +
+  geom_line(linewidth = 1) +
+  geom_point()+
+  labs(x = "Year",
+       y = "Day of occurrence") +
+  theme_clean() +
+  facet_grid(`Ref. No.` ~ .) +
+  theme(strip.text.y.right = element_text(angle = 0)) +
   scale_x_continuous(labels = c(1991:2023), breaks = c(1991:2023)) +
   theme(axis.text.x = element_text(angle = 90),
         strip.text.x = element_text(face = "italic"))

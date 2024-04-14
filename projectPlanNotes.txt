@@ -1,0 +1,20 @@
+<><><><><><><><><><><><> 9 April 2024 <><><><><><><><><><><><>
+
+Magnolia phenology
+	Compile all the data into one file
+	Put it on a repo and share with Lizzie and Adriana
+Add a readme!
+Make some scatterplots
+	1 plot of mean min max annual, in one figure
+	Then do the same for the 4 climatological periods, the three month periods like JFM, AMJ, JAS, OND
+	Is the spring unique or is it just not warming in Vancouver?
+		Verify if other metrics have changed, and maybe just not spring
+	Do the full series from the start of data collection to now, not just 1991 but the first year available
+	Double check with an extra dataset that isn’t the airport (maybe find something from https://climexp.knmi.nl/getstations.cgi)
+		Pull the GHCN site for airport data and make sure they’re the same
+		GHCN would be cleaned for this airport data
+Start a Git issue just for the climate data so that we can ensure that it’s all done before anything else
+	Check GDD again and make sure its functional
+
+Summarize which we have the most data on, species by phenophase like compiling all the M. campbellii etc.
+
