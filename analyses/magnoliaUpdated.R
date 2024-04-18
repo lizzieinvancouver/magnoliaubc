@@ -306,7 +306,7 @@ campbellii_cult %>% ggplot(aes(x = year,
   labs(x = "Year",
        y = "Day of occurrence") +
   theme_clean() +
-  facet_grid(`Ref. No.` ~ .,labeller = as_labeller(campbell_names)) +
+  facet_grid(`Ref. No.` ~ .,labeller = as_labeller(campbell_cult_label)) +
   theme(strip.text.y.right = element_text(angle = 0)) +
   scale_x_continuous(labels = c(1991:2023), breaks = c(1991:2023)) +
   theme(axis.text.x = element_text(angle = 90),
@@ -374,8 +374,6 @@ dawsoniana_cult %>% ggplot(aes(x = year,
   theme(axis.text.x = element_text(angle = 90),
         strip.text.x = element_text(face = "italic"))
 # <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
-
-unique(allbind$Name)
 
 # Magnolia misc species and cultivars <><><><><><><><><><><><><><><><><><><><><>
 misc <- allbind %>%
