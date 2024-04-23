@@ -1,0 +1,33 @@
+<><><><><><><><><><><><><><><><><><><><><><><><><><><><>
+<>            Magnolia Phenology Project              <>
+<>	 UBC Botanical Garden and Wolkovich Lab       <>
+<> 						      <>
+<>	             22 April 2024		      <>
+<>		      Justin Ngo		      <>
+<><><><><><><><><><><><><><><><><><><><><><><><><><><><>
+
+Working on a dataset of different phenology events across various Magnolia trees at UBC Botanical Garden over the years since 1991.
+DOY (day of year) is calculated from the dates in the dataset through the yearday() function in R.
+
+Events:
+ - First bud colour: DOY when flower buds begin to develop their floral colour.
+ - First flower open: DOY when the first bud opens.
+ - Peak bloom: DOY of estimated greatest number of flowers in middle of their blooming.
+ - First tepal drop: DOY when the first tepal drops.
+ - Last tepal drop: DOY when the last tepal drops, all tepals senesced.
+ - First green seen: budburst of foliage. Magnolias tend to bloom prior to any leafout.
+
+
+Other variables:
+ - Ref. No.: identity given to each individual tree, remained constant. Can be used to identify which trees have undergone taxonomy or cultivar name changes.
+ - Location: the bed code that the tree is planted in at UBC Botanical Garden.
+ - Name: the Latin name given to the species alongside the cultivar name, both of which are subject to change over time.
+ - Accession number: the identifier within the garden's database; older years use a now-obsolete old version of the accession number system, which has now been updated. Use Ref. No. to search for individuals rather than accession number because of this update.
+ - Status in 2024: if that tree is still alive in 2024 and part of the data collection.
+
+
+Minor comments:
+ - M. sargentiana 'Blood Moon' on M. sprengeri refers to the grafted scion on M. sargentiana 'Blood Moon' on M. sprengeri rootstock. Should be treated as an M. sargentiana individual when clustering by species, not M. sprengeri.
+ - M. sprengeri on its own refers to the true wild species, not any cultivar. This is true for all of the species used in this study; if there is no apostrophe denoting a cultivar name, it is the species. 
+
+
