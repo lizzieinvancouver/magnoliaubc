@@ -520,32 +520,5 @@ makegdd.data.skipNA.arghh <- function(dater, gdd.col, doy.col, startdate, needst
 }
 # <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
 
-# 9 April 2024 now adding the new data from Adriana
-
-d2010 <- read_csv("analyses/input/data2010.csv")
-d2011 <- read_csv("analyses/input/data2011.csv")
-d2012 <- read_csv("analyses/input/data2012.csv")
-d2013 <- read_csv("analyses/input/data2013.csv")
-d2014 <- read_csv("analyses/input/data2014.csv")
-d2015 <- read_csv("analyses/input/data2015.csv")
-d2016 <- read_csv("analyses/input/data2016.csv")
-d2017 <- read_csv("analyses/input/data2017.csv")
-d2018 <- read_csv("analyses/input/data2018.csv")
-d2019 <- read_csv("analyses/input/data2019.csv")
-# d2020 <- read_csv("analyses/input/data2020.csv")
-d2021 <- read_csv("analyses/input/data2021.csv")
-d2022 <- read_csv("analyses/input/data2022.csv")
-d2023 <- read_csv("analyses/input/data2023.csv")
-
-dto23 <- rbind(d2010, d2011, d2012, d2013, d2014,
-               d2015, d2016, d2017, d2018, d2019,
-               d2021, d2022, d2023)
-dlong <- melt(dto23, id.vars=c("Ref. No.","Location","Name","Accession Number","Status in 2024","Comments"),
-                var = "event")
-dlong$value <- as.Date(dlong$value, format = "%Y-%m-%d")
-ddate <- dlong %>%
-  mutate(DOY = yday(value)) %>%
-  filter(!is.na(value)) %>%
-  select(-5,-6)
 
 
