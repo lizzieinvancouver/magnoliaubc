@@ -439,6 +439,33 @@ allbind %>%
 # <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
 
 # Temperature data <><><><><><><><><><><><><><><><><><><><><><>
+vandat <- read_csv("analyses/input/vanDailyWeather.csv")
+
+range <- interval(as.POSIXct("1991-01-31"),
+                  as.POSIXct("2023-05-31"))
+
+vandat_febmay <- vandat %>% #only months Feb to May are needed
+  mutate(date2 = ymd(date)) %>%
+  filter(date2 >= make_date(year((date2)), 2, 1),
+         date2 <= make_date(year((date2)), 5, 31)) %>%
+  filter(date2 %within% range) %>%
+  mutate(DOY = yday(date2))
+
+vandat_sel <- vandat_febmay %>%
+  select(date2, DOY, max_temperature, avg_temperature, min_temperature, heatdegdays, growdegdays_5, growdegdays_7, growdegdays_10) %>%
+  mutate(year = year(date2),
+         month = month(date2))
+# I wanted to keep sunrise sunset data but it's not complete
+
+# Make mean average spring temperature according to the historic min and max phenology DOYs for each species?
+# Luckily for me, DOY range for the four grouped cultivars (campbellii, etc.) are always within ~60 to ~140 to let's filter for DOY 59 to 141
+vandat_maggroup_year <- vandat_sel %>%
+  filter(DOY %in% (59:141)) %>%
+  group_by(year) %>%
+  summarise_all(mean) %>%
+  select(-date2, -DOY, -month)
+# Now we have average temperature between Feb and May for every year
+
 tempdat <- vandat_maggroup_year %>%
   select(1:4) %>%
   tibble::rownames_to_column(var = "var")
@@ -458,6 +485,65 @@ tempplot <- tempdat %>%
   theme(axis.text.x = element_text(angle = 270))+
   ylim(0,20)
 tempplot
+
+# Is spring weather just not changing across the years?
+# Making four plots to show the temperature in yearly quarters
+vandat_month <- vandat %>%
+  mutate(month = month(date))%>%
+  mutate(year = year(date))%>%
+  select(1:5,73,74)
+szn.winter <- vandat_month %>%
+  filter(month == "12" | month == "1" | month == "2") %>%
+  group_by(year)%>%
+  summarize_all(mean)%>%
+  mutate(season = "winter")
+szn.spring <- vandat_month %>%
+  filter(month == "3" | month == "4" | month == "5") %>%
+  group_by(year)%>%
+  summarize_all(mean)%>%
+  mutate(season = "spring")
+szn.summer <- vandat_month %>%
+  filter(month == "6" | month == "7" | month == "8") %>%
+  group_by(year)%>%
+  summarize_all(mean)%>%
+  mutate(season = "summer")
+szn.autumn <- vandat_month %>%
+  filter(month == "9" | month == "10" | month == "11") %>%
+  group_by(year)%>%
+  summarize_all(mean)%>%
+  mutate(season = "autumn")
+
+seasons <- rbind(szn.winter,szn.spring,szn.summer,szn.autumn)
+seasons %>%
+  ggplot(aes(x = year,
+             y = avg_temperature,
+             colour = season))+
+  geom_point() +
+  geom_smooth(method = "lm") +
+  theme_clean() +
+  labs(x = "Year",
+       y = "Mean Temperature (degC)") +
+  ylim(0,25)
+
+# winter temp trend
+wintermodel <- lm(avg_temperature~year, szn.winter)
+summary(wintermodel)
+paste('y =', coef(wintermodel)[[2]], '* x', '+', coef(wintermodel)[[1]])
+
+# spring temp trend
+springmodel <- lm(avg_temperature~year, szn.spring)
+summary(springmodel)
+paste('y =', coef(springmodel)[[2]], '* x', '+', coef(springmodel)[[1]])
+
+# summer temp trend
+summermodel <- lm(avg_temperature~year, szn.summer)
+summary(summermodel)
+paste('y =', coef(summermodel)[[2]], '* x', '+', coef(summermodel)[[1]])
+
+# autumn temp trend
+autumnmodel <- lm(avg_temperature~year, szn.autumn)
+summary(autumnmodel)
+paste('y =', coef(autumnmodel)[[2]], '* x', '+', coef(autumnmodel)[[1]])
 
 # <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
 ## some f(x)s to help calculate GDD
