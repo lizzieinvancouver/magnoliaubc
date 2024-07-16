@@ -396,7 +396,7 @@ tavg.envcan <- tavg.airport %>%
 range <- interval(as.POSIXct("1991-01-31"),
                   as.POSIXct("2023-05-31"))
 tavg.envcan <- tavg.envcan %>%
-  filter(date >= make_date(year((date)), 2, 1),
+  filter(date >= make_date(year((date)), 1, 1),
          date <= make_date(year((date)), 5, 31)) %>%
   filter(date %within% range)
 

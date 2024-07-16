@@ -22,19 +22,23 @@ dmag <- dmag %>%
   select(-1)
 
 # Trying to merge the dtemp into dmag and hope they match by date
-dmag$value <- as.Date(dmag$value)
-dmag <- dmag %>%
-  mutate(ID1 = value) %>%
-  group_by(value) %>%
-  mutate(ID2 = row_number()) %>%
-  ungroup()
-dtemp <- dtemp %>%
-  mutate(ID1 = date) %>%
-  group_by(date) %>%
-  mutate(ID2 = row_number()) %>%
-  ungroup()
+dmag$gdd <- NA
 
-dmerge <- full_join(dmag, dtemp, by = c("ID1","ID2"))
-# Ya idk 
-# If I don't go group_by() the two datasets multiply by each other
-# If I do use group_by() then dtemp doesn't replicate every time a date appears twice
+# for(i in c(1:nrow(dmag))) { #i = 1
+#   gddhere <- dtemp$gddAccumulate[which(dtemp$year == dmag$year[i] & dtemp$doy == dmag$DOY[i])]
+#   dmag$gdd[i] <- gddhere
+# }
+
+for(i in c(1:nrow(dmag))) {
+  match_row <- which(dtemp$year == dmag$year[i] & dtemp$doy == dmag$DOY[i])
+  
+  if (length(match_row) > 0) {
+    dmag$gdd[i] <- dtemp$gddAccumulate[match_row]
+  } else {
+    dmag$gdd[i] <- NA
+  }
+}
+
+getwd()
+write.csv(dmag, "analyses/output/magnoliaAll.csv")
+write.csv(dmag, "analyses/input/magnoliaAll.csv")
