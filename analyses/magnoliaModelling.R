@@ -43,6 +43,11 @@ getwd()
 # write.csv(dmag, "analyses/output/magnoliaAll.csv")
 # write.csv(dmag, "analyses/input/magnoliaAll.csv")
 
+
+# <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
 # Now to get onto the actual modelling parts?
 
 magd <- read_csv("analyses/output/magnoliaAll.csv")
+
+mod1 <- stan_lmer(gdd ~ event | Name, data = magd) #This gives us the average gdd for each event but also try to partition by the different Names
+
