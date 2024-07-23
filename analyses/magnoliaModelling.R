@@ -40,5 +40,9 @@ for(i in c(1:nrow(dmag))) {
 }
 
 getwd()
-write.csv(dmag, "analyses/output/magnoliaAll.csv")
-write.csv(dmag, "analyses/input/magnoliaAll.csv")
+# write.csv(dmag, "analyses/output/magnoliaAll.csv")
+# write.csv(dmag, "analyses/input/magnoliaAll.csv")
+
+# Now to get onto the actual modelling parts?
+
+magd <- read_csv("analyses/output/magnoliaAll.csv")
