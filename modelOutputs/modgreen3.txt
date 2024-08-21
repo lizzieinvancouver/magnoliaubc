@@ -1,0 +1,180 @@
+
+Model Info:
+ function:     stan_lmer
+ family:       gaussian [identity]
+ formula:      gdd ~ (1 | spName/cultivarName)
+ algorithm:    sampling
+ sample:       4000 (posterior sample size)
+ priors:       see help('prior_summary')
+ observations: 303
+ groups:       cultivarName:spName (27), spName (20)
+
+Estimates:
+                                                                                      mean   sd     10%    50% 
+(Intercept)                                                                          179.7   11.5  165.4  179.5
+b[(Intercept) cultivarName:spName:'Barbara_Cook':M._dawsoniana]                       -6.9   17.2  -29.5   -4.1
+b[(Intercept) cultivarName:spName:'Blood_Moon':M._sargentiana_]                      -14.1   14.6  -33.3  -12.1
+b[(Intercept) cultivarName:spName:'Borde_Hill':M._campbellii_]                        -3.3   12.8  -19.5   -2.5
+b[(Intercept) cultivarName:spName:'Chyverton_Dark':M._sargentiana_]                    9.5   13.2   -4.7    8.4
+b[(Intercept) cultivarName:spName:'Chyverton_Red':M._dawsoniana_]                     -2.9   14.7  -20.6   -1.1
+b[(Intercept) cultivarName:spName:'Claret_Cup':M._sprengeri_]                         13.5   12.4   -0.8   12.4
+b[(Intercept) cultivarName:spName:'Clarke':M._dawsoniana_]                            -5.9   14.5  -24.5   -3.7
+b[(Intercept) cultivarName:spName:'Diva':M._sprengeri_]                               -4.9   12.2  -20.6   -3.4
+b[(Intercept) cultivarName:spName:'Eric_Savill':M._sprengeri_]                       -12.0   13.4  -30.0   -9.9
+b[(Intercept) cultivarName:spName:'Ethel_Hillier':M._campbellii_(Alba_Group)_]         1.6   15.5  -16.5    0.9
+b[(Intercept) cultivarName:spName:'Forrest's_Pink':M._denudata_]                      -9.2   15.1  -29.0   -6.9
+b[(Intercept) cultivarName:spName:'Lanarth':M._campbellii_]                            2.4   13.0  -12.9    1.8
+b[(Intercept) cultivarName:spName:'Wada's_Japanese_Clone':M._denudata_]                1.0   13.4  -15.5    1.4
+b[(Intercept) cultivarName:spName:'Wakehurst':M._sprengeri_]                          -5.5   12.3  -21.2   -4.1
+b[(Intercept) cultivarName:spName:botanical_species:M._amoena]                        -3.9   16.6  -24.4   -2.1
+b[(Intercept) cultivarName:spName:botanical_species:M._campbellii]                    -3.4   15.1  -21.7   -2.2
+b[(Intercept) cultivarName:spName:botanical_species:M._cavaleriei_var._platypetala]   11.6   22.1   -9.1    6.1
+b[(Intercept) cultivarName:spName:botanical_species:M._chevalieri]                     6.6   17.9  -12.1    3.5
+b[(Intercept) cultivarName:spName:botanical_species:M._conifera]                      11.4   21.0   -9.1    6.3
+b[(Intercept) cultivarName:spName:botanical_species:M._cylindrica]                    -2.3   15.3  -21.1   -1.2
+b[(Intercept) cultivarName:spName:botanical_species:M._laevifolia]                    13.2   23.1   -8.1    7.3
+b[(Intercept) cultivarName:spName:botanical_species:M._maudiae]                       14.4   24.1   -7.5    8.2
+b[(Intercept) cultivarName:spName:botanical_species:M._sapaensis]                     11.1   22.0   -9.7    6.0
+b[(Intercept) cultivarName:spName:botanical_species:M._sargentiana]                   -7.5   17.7  -31.1   -4.5
+b[(Intercept) cultivarName:spName:botanical_species:M._sprengeri]                     -6.7   17.3  -28.8   -3.9
+b[(Intercept) cultivarName:spName:botanical_species:M._stellata]                      -4.8   16.1  -25.3   -2.9
+b[(Intercept) cultivarName:spName:botanical_species:M._zenii]                         -4.9   15.9  -25.6   -3.0
+b[(Intercept) spName:M._amoena]                                                      -20.9   23.3  -50.9  -20.8
+b[(Intercept) spName:M._campbellii]                                                  -18.9   18.9  -42.0  -18.9
+b[(Intercept) spName:M._campbellii_]                                                  -4.3   16.9  -25.3   -4.2
+b[(Intercept) spName:M._campbellii_(Alba_Group)_]                                      5.5   19.9  -19.7    5.4
+b[(Intercept) spName:M._cavaleriei_var._platypetala]                                  55.0   26.6   18.6   56.9
+b[(Intercept) spName:M._chevalieri]                                                   29.7   26.0   -3.4   29.3
+b[(Intercept) spName:M._conifera]                                                     50.3   24.3   16.3   51.7
+b[(Intercept) spName:M._cylindrica]                                                  -15.0   19.4  -39.9  -15.1
+b[(Intercept) spName:M._dawsoniana]                                                  -34.3   21.8  -60.9  -35.3
+b[(Intercept) spName:M._dawsoniana_]                                                 -35.1   18.8  -58.4  -36.1
+b[(Intercept) spName:M._denudata_]                                                   -32.5   18.3  -55.2  -32.8
+b[(Intercept) spName:M._laevifolia]                                                   65.3   31.1   23.1   66.2
+b[(Intercept) spName:M._maudiae]                                                      66.6   28.3   28.2   68.9
+b[(Intercept) spName:M._sapaensis]                                                    56.0   34.0   10.8   56.4
+b[(Intercept) spName:M._sargentiana]                                                 -35.8   22.2  -62.7  -37.2
+b[(Intercept) spName:M._sargentiana_]                                                -18.0   17.4  -40.1  -18.6
+b[(Intercept) spName:M._sprengeri]                                                   -33.6   22.4  -61.4  -34.3
+b[(Intercept) spName:M._sprengeri_]                                                  -29.4   15.6  -48.9  -29.7
+b[(Intercept) spName:M._stellata]                                                    -24.8   22.3  -52.8  -25.0
+b[(Intercept) spName:M._zenii]                                                       -23.5   21.2  -50.6  -23.8
+sigma                                                                                 35.8    1.6   33.9   35.7
+Sigma[cultivarName:spName:(Intercept),(Intercept)]                                   372.8  467.0   38.0  213.3
+Sigma[spName:(Intercept),(Intercept)]                                               2068.0 1075.7  858.5 1935.0
+                                                                                      90% 
+(Intercept)                                                                          194.0
+b[(Intercept) cultivarName:spName:'Barbara_Cook':M._dawsoniana]                       11.4
+b[(Intercept) cultivarName:spName:'Blood_Moon':M._sargentiana_]                        1.5
+b[(Intercept) cultivarName:spName:'Borde_Hill':M._campbellii_]                        11.6
+b[(Intercept) cultivarName:spName:'Chyverton_Dark':M._sargentiana_]                   26.4
+b[(Intercept) cultivarName:spName:'Chyverton_Red':M._dawsoniana_]                     13.0
+b[(Intercept) cultivarName:spName:'Claret_Cup':M._sprengeri_]                         29.8
+b[(Intercept) cultivarName:spName:'Clarke':M._dawsoniana_]                             9.8
+b[(Intercept) cultivarName:spName:'Diva':M._sprengeri_]                                8.6
+b[(Intercept) cultivarName:spName:'Eric_Savill':M._sprengeri_]                         2.3
+b[(Intercept) cultivarName:spName:'Ethel_Hillier':M._campbellii_(Alba_Group)_]        20.5
+b[(Intercept) cultivarName:spName:'Forrest's_Pink':M._denudata_]                       6.8
+b[(Intercept) cultivarName:spName:'Lanarth':M._campbellii_]                           18.2
+b[(Intercept) cultivarName:spName:'Wada's_Japanese_Clone':M._denudata_]               16.5
+b[(Intercept) cultivarName:spName:'Wakehurst':M._sprengeri_]                           8.2
+b[(Intercept) cultivarName:spName:botanical_species:M._amoena]                        14.4
+b[(Intercept) cultivarName:spName:botanical_species:M._campbellii]                    14.4
+b[(Intercept) cultivarName:spName:botanical_species:M._cavaleriei_var._platypetala]   39.6
+b[(Intercept) cultivarName:spName:botanical_species:M._chevalieri]                    29.4
+b[(Intercept) cultivarName:spName:botanical_species:M._conifera]                      39.8
+b[(Intercept) cultivarName:spName:botanical_species:M._cylindrica]                    15.3
+b[(Intercept) cultivarName:spName:botanical_species:M._laevifolia]                    42.5
+b[(Intercept) cultivarName:spName:botanical_species:M._maudiae]                       46.2
+b[(Intercept) cultivarName:spName:botanical_species:M._sapaensis]                     38.7
+b[(Intercept) cultivarName:spName:botanical_species:M._sargentiana]                   11.2
+b[(Intercept) cultivarName:spName:botanical_species:M._sprengeri]                     11.7
+b[(Intercept) cultivarName:spName:botanical_species:M._stellata]                      13.5
+b[(Intercept) cultivarName:spName:botanical_species:M._zenii]                         12.6
+b[(Intercept) spName:M._amoena]                                                        9.0
+b[(Intercept) spName:M._campbellii]                                                    5.0
+b[(Intercept) spName:M._campbellii_]                                                  17.1
+b[(Intercept) spName:M._campbellii_(Alba_Group)_]                                     30.6
+b[(Intercept) spName:M._cavaleriei_var._platypetala]                                  87.4
+b[(Intercept) spName:M._chevalieri]                                                   63.1
+b[(Intercept) spName:M._conifera]                                                     79.8
+b[(Intercept) spName:M._cylindrica]                                                    9.1
+b[(Intercept) spName:M._dawsoniana]                                                   -5.5
+b[(Intercept) spName:M._dawsoniana_]                                                  -9.7
+b[(Intercept) spName:M._denudata_]                                                    -7.9
+b[(Intercept) spName:M._laevifolia]                                                  104.9
+b[(Intercept) spName:M._maudiae]                                                     100.2
+b[(Intercept) spName:M._sapaensis]                                                   100.0
+b[(Intercept) spName:M._sargentiana]                                                  -5.9
+b[(Intercept) spName:M._sargentiana_]                                                  3.6
+b[(Intercept) spName:M._sprengeri]                                                    -4.0
+b[(Intercept) spName:M._sprengeri_]                                                   -8.8
+b[(Intercept) spName:M._stellata]                                                      3.1
+b[(Intercept) spName:M._zenii]                                                         3.2
+sigma                                                                                 37.8
+Sigma[cultivarName:spName:(Intercept),(Intercept)]                                   913.9
+Sigma[spName:(Intercept),(Intercept)]                                               3440.6
+
+Fit Diagnostics:
+           mean   sd    10%   50%   90%
+mean_PPD 159.0    2.9 155.3 159.0 162.8
+
+The mean_ppd is the sample average posterior predictive distribution of the outcome variable (for details see help('summary.stanreg')).
+
+MCMC diagnostics
+                                                                                    mcse Rhat n_eff
+(Intercept)                                                                          0.3  1.0 1251 
+b[(Intercept) cultivarName:spName:'Barbara_Cook':M._dawsoniana]                      0.6  1.0  819 
+b[(Intercept) cultivarName:spName:'Blood_Moon':M._sargentiana_]                      0.4  1.0 1122 
+b[(Intercept) cultivarName:spName:'Borde_Hill':M._campbellii_]                       0.2  1.0 4363 
+b[(Intercept) cultivarName:spName:'Chyverton_Dark':M._sargentiana_]                  0.2  1.0 2972 
+b[(Intercept) cultivarName:spName:'Chyverton_Red':M._dawsoniana_]                    0.5  1.0  902 
+b[(Intercept) cultivarName:spName:'Claret_Cup':M._sprengeri_]                        0.2  1.0 2637 
+b[(Intercept) cultivarName:spName:'Clarke':M._dawsoniana_]                           0.5  1.0  890 
+b[(Intercept) cultivarName:spName:'Diva':M._sprengeri_]                              0.3  1.0 1300 
+b[(Intercept) cultivarName:spName:'Eric_Savill':M._sprengeri_]                       0.5  1.0  870 
+b[(Intercept) cultivarName:spName:'Ethel_Hillier':M._campbellii_(Alba_Group)_]       0.3  1.0 2319 
+b[(Intercept) cultivarName:spName:'Forrest's_Pink':M._denudata_]                     0.5  1.0  826 
+b[(Intercept) cultivarName:spName:'Lanarth':M._campbellii_]                          0.2  1.0 4242 
+b[(Intercept) cultivarName:spName:'Wada's_Japanese_Clone':M._denudata_]              0.4  1.0 1157 
+b[(Intercept) cultivarName:spName:'Wakehurst':M._sprengeri_]                         0.3  1.0 1239 
+b[(Intercept) cultivarName:spName:botanical_species:M._amoena]                       0.4  1.0 2131 
+b[(Intercept) cultivarName:spName:botanical_species:M._campbellii]                   0.3  1.0 2533 
+b[(Intercept) cultivarName:spName:botanical_species:M._cavaleriei_var._platypetala]  1.1  1.0  434 
+b[(Intercept) cultivarName:spName:botanical_species:M._chevalieri]                   0.6  1.0  846 
+b[(Intercept) cultivarName:spName:botanical_species:M._conifera]                     1.0  1.0  403 
+b[(Intercept) cultivarName:spName:botanical_species:M._cylindrica]                   0.3  1.0 2826 
+b[(Intercept) cultivarName:spName:botanical_species:M._laevifolia]                   1.2  1.0  387 
+b[(Intercept) cultivarName:spName:botanical_species:M._maudiae]                      1.3  1.0  369 
+b[(Intercept) cultivarName:spName:botanical_species:M._sapaensis]                    0.9  1.0  553 
+b[(Intercept) cultivarName:spName:botanical_species:M._sargentiana]                  0.6  1.0  746 
+b[(Intercept) cultivarName:spName:botanical_species:M._sprengeri]                    0.6  1.0  923 
+b[(Intercept) cultivarName:spName:botanical_species:M._stellata]                     0.4  1.0 1885 
+b[(Intercept) cultivarName:spName:botanical_species:M._zenii]                        0.4  1.0 1623 
+b[(Intercept) spName:M._amoena]                                                      0.6  1.0 1781 
+b[(Intercept) spName:M._campbellii]                                                  0.5  1.0 1290 
+b[(Intercept) spName:M._campbellii_]                                                 0.4  1.0 2106 
+b[(Intercept) spName:M._campbellii_(Alba_Group)_]                                    0.4  1.0 2531 
+b[(Intercept) spName:M._cavaleriei_var._platypetala]                                 1.0  1.0  770 
+b[(Intercept) spName:M._chevalieri]                                                  0.6  1.0 1855 
+b[(Intercept) spName:M._conifera]                                                    1.0  1.0  622 
+b[(Intercept) spName:M._cylindrica]                                                  0.5  1.0 1741 
+b[(Intercept) spName:M._dawsoniana]                                                  0.8  1.0  761 
+b[(Intercept) spName:M._dawsoniana_]                                                 0.7  1.0  723 
+b[(Intercept) spName:M._denudata_]                                                   0.7  1.0  774 
+b[(Intercept) spName:M._laevifolia]                                                  1.2  1.0  640 
+b[(Intercept) spName:M._maudiae]                                                     1.2  1.0  582 
+b[(Intercept) spName:M._sapaensis]                                                   1.0  1.0 1118 
+b[(Intercept) spName:M._sargentiana]                                                 0.9  1.0  666 
+b[(Intercept) spName:M._sargentiana_]                                                0.5  1.0 1340 
+b[(Intercept) spName:M._sprengeri]                                                   0.8  1.0  779 
+b[(Intercept) spName:M._sprengeri_]                                                  0.5  1.0  905 
+b[(Intercept) spName:M._stellata]                                                    0.6  1.0 1394 
+b[(Intercept) spName:M._zenii]                                                       0.6  1.0 1142 
+sigma                                                                                0.0  1.0 3944 
+Sigma[cultivarName:spName:(Intercept),(Intercept)]                                  28.3  1.0  273 
+Sigma[spName:(Intercept),(Intercept)]                                               46.6  1.0  533 
+mean_PPD                                                                             0.0  1.0 3636 
+log-posterior                                                                        0.2  1.0  894 
+
+For each parameter, mcse is Monte Carlo standard error, n_eff is a crude measure of effective sample size, and Rhat is the potential scale reduction factor on split chains (at convergence Rhat=1).

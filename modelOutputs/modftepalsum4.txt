@@ -1,0 +1,96 @@
+
+Model Info:
+ function:     stan_lmer
+ family:       gaussian [identity]
+ formula:      gdd ~ (1 | spName) + year
+ algorithm:    sampling
+ sample:       4000 (posterior sample size)
+ priors:       see help('prior_summary')
+ observations: 796
+ groups:       spName (31)
+
+Estimates:
+                                                                   mean   sd     10%    50%    90% 
+(Intercept)                                                      1276.0  331.6  845.5 1276.3 1691.6
+year                                                               -0.6    0.2   -0.8   -0.6   -0.3
+b[(Intercept) spName:M__sprengeri_]                                50.1   33.5    7.4   49.9   93.2
+b[(Intercept) spName:M._amoena]                                   -53.6   20.5  -79.9  -53.4  -27.6
+b[(Intercept) spName:M._biondii]                                  -45.5   16.2  -66.7  -45.3  -25.1
+b[(Intercept) spName:M._campbellii]                               -22.7   13.6  -40.4  -22.6   -5.2
+b[(Intercept) spName:M._campbellii_]                              -40.7   13.9  -58.7  -40.8  -22.8
+b[(Intercept) spName:M._campbellii_(Alba_Group)_]                 -37.7   17.2  -59.6  -37.9  -15.7
+b[(Intercept) spName:M._campbellii_(deep_pink_form)]              -29.8   17.5  -51.8  -29.8   -7.5
+b[(Intercept) spName:M._campbellii_(F.C.C._form)]                 -43.2   15.2  -62.8  -43.1  -23.7
+b[(Intercept) spName:M._campbellii_(hybrid)]                      -26.3   15.5  -46.5  -26.0   -6.3
+b[(Intercept) spName:M._campbellii_subsp._campbellii_]             16.8   20.7  -10.6   17.6   42.7
+b[(Intercept) spName:M._campbellii_subsp._mollicomata]            -30.3   15.3  -50.4  -30.1  -10.2
+b[(Intercept) spName:M._campbellii_subsp._mollicomata_]           -44.2   14.6  -63.0  -44.6  -25.6
+b[(Intercept) spName:M._cavaleriei_var._platypetala]              158.0   16.8  136.6  157.8  179.9
+b[(Intercept) spName:M._cylindrica]                                27.0   13.9    8.8   26.9   45.1
+b[(Intercept) spName:M._dawsoniana]                               -47.3   15.1  -66.7  -47.0  -28.0
+b[(Intercept) spName:M._dawsoniana_]                              -26.4   13.6  -44.3  -26.3   -8.8
+b[(Intercept) spName:M._denudata]                                 -20.7   14.9  -40.1  -20.7   -1.2
+b[(Intercept) spName:M._denudata_]                                 21.5   14.3    2.9   21.5   40.2
+b[(Intercept) spName:M._laevifolia]                               115.2   22.4   86.6  115.0  144.7
+b[(Intercept) spName:M._maudiae]                                   76.2   19.6   50.5   76.5  101.7
+b[(Intercept) spName:M._maudiae_var._platypetala]                 123.3   22.2   94.1  123.3  151.7
+b[(Intercept) spName:M._officinalis_biloba]                       256.0   23.3  225.9  256.0  285.3
+b[(Intercept) spName:M._sargentiana]                              -50.0   14.7  -68.9  -49.9  -31.1
+b[(Intercept) spName:M._sargentiana_]                             -41.8   14.0  -60.0  -41.9  -24.2
+b[(Intercept) spName:M._sargentiana_(ex._var._robusta)]           -58.2   14.8  -77.4  -58.4  -38.9
+b[(Intercept) spName:M._sargentiana_(pale_flower_selection_ex._]  -52.8   15.6  -72.8  -52.7  -32.8
+b[(Intercept) spName:M._sprengeri]                                -36.2   14.4  -54.8  -36.2  -17.2
+b[(Intercept) spName:M._sprengeri_]                               -29.9   13.6  -47.5  -29.7  -12.6
+b[(Intercept) spName:M._stellata]                                  -1.8   14.7  -21.0   -1.3   17.0
+b[(Intercept) spName:M._zenii]                                    -38.9   16.0  -59.7  -38.9  -17.7
+b[(Intercept) spName:M._zenii_(clone_no._1)]                      -47.0   15.1  -66.5  -46.9  -27.7
+sigma                                                              33.9    0.9   32.8   33.8   35.0
+Sigma[spName:(Intercept),(Intercept)]                            5779.6 1609.5 3955.7 5541.4 7865.4
+
+Fit Diagnostics:
+           mean   sd    10%   50%   90%
+mean_PPD 147.2    1.7 145.0 147.2 149.4
+
+The mean_ppd is the sample average posterior predictive distribution of the outcome variable (for details see help('summary.stanreg')).
+
+MCMC diagnostics
+                                                                 mcse Rhat n_eff
+(Intercept)                                                       6.7  1.0 2461 
+year                                                              0.0  1.0 2479 
+b[(Intercept) spName:M__sprengeri_]                               0.9  1.0 1293 
+b[(Intercept) spName:M._amoena]                                   0.9  1.0  568 
+b[(Intercept) spName:M._biondii]                                  0.9  1.0  355 
+b[(Intercept) spName:M._campbellii]                               0.9  1.0  247 
+b[(Intercept) spName:M._campbellii_]                              0.9  1.0  253 
+b[(Intercept) spName:M._campbellii_(Alba_Group)_]                 0.9  1.0  408 
+b[(Intercept) spName:M._campbellii_(deep_pink_form)]              0.9  1.0  385 
+b[(Intercept) spName:M._campbellii_(F.C.C._form)]                 0.9  1.0  315 
+b[(Intercept) spName:M._campbellii_(hybrid)]                      0.9  1.0  323 
+b[(Intercept) spName:M._campbellii_subsp._campbellii_]            0.9  1.0  569 
+b[(Intercept) spName:M._campbellii_subsp._mollicomata]            0.9  1.0  311 
+b[(Intercept) spName:M._campbellii_subsp._mollicomata_]           0.9  1.0  281 
+b[(Intercept) spName:M._cavaleriei_var._platypetala]              0.8  1.0  397 
+b[(Intercept) spName:M._cylindrica]                               0.9  1.0  259 
+b[(Intercept) spName:M._dawsoniana]                               0.9  1.0  297 
+b[(Intercept) spName:M._dawsoniana_]                              0.9  1.0  248 
+b[(Intercept) spName:M._denudata]                                 0.9  1.0  276 
+b[(Intercept) spName:M._denudata_]                                0.9  1.0  272 
+b[(Intercept) spName:M._laevifolia]                               0.9  1.0  618 
+b[(Intercept) spName:M._maudiae]                                  0.9  1.0  449 
+b[(Intercept) spName:M._maudiae_var._platypetala]                 0.9  1.0  599 
+b[(Intercept) spName:M._officinalis_biloba]                       0.9  1.0  616 
+b[(Intercept) spName:M._sargentiana]                              0.9  1.0  293 
+b[(Intercept) spName:M._sargentiana_]                             0.9  1.0  255 
+b[(Intercept) spName:M._sargentiana_(ex._var._robusta)]           0.9  1.0  290 
+b[(Intercept) spName:M._sargentiana_(pale_flower_selection_ex._]  0.9  1.0  336 
+b[(Intercept) spName:M._sprengeri]                                0.9  1.0  283 
+b[(Intercept) spName:M._sprengeri_]                               0.9  1.0  243 
+b[(Intercept) spName:M._stellata]                                 0.9  1.0  292 
+b[(Intercept) spName:M._zenii]                                    0.9  1.0  349 
+b[(Intercept) spName:M._zenii_(clone_no._1)]                      0.9  1.0  303 
+sigma                                                             0.0  1.0 1916 
+Sigma[spName:(Intercept),(Intercept)]                            63.8  1.0  635 
+mean_PPD                                                          0.0  1.0 3831 
+log-posterior                                                     0.2  1.0  658 
+
+For each parameter, mcse is Monte Carlo standard error, n_eff is a crude measure of effective sample size, and Rhat is the potential scale reduction factor on split chains (at convergence Rhat=1).
