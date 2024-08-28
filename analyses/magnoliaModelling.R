@@ -13,6 +13,9 @@ library(rstanarm)
 library(tidyverse)
 # install.packages("shinystan")
 library(shinystan)
+# install.packages("bayesplot")
+library(bayesplot)
+library(ggplot2)
 
 # Loading in the temperature and floral phenology data
 source("analyses/magnoliaTemperature.R")
@@ -69,12 +72,12 @@ dltepal <- filter(magd, event == "Last tepal drop")
 dgreen <- filter(magd, event == "First green seen")
 
 # This is the gdd ~ (1|Name) model structure
-modbud <- stan_lmer(gdd ~ (1|Name), data = dbud)
-modanthesis <- stan_lmer(gdd ~ (1|Name), data = danthesis)
-modpeak <- stan_lmer(gdd ~ (1|Name), data = dpeak)
-modftepal <- stan_lmer(gdd ~ (1|Name), data = dftepal)
-modltepal <- stan_lmer(gdd ~ (1|Name), data = dltepal)
-modgreen <- stan_lmer(gdd ~ (1|Name), data = dgreen)
+# modbud <- stan_lmer(gdd ~ (1|Name), data = dbud)
+# modanthesis <- stan_lmer(gdd ~ (1|Name), data = danthesis)
+# modpeak <- stan_lmer(gdd ~ (1|Name), data = dpeak)
+# modftepal <- stan_lmer(gdd ~ (1|Name), data = dftepal)
+# modltepal <- stan_lmer(gdd ~ (1|Name), data = dltepal)
+# modgreen <- stan_lmer(gdd ~ (1|Name), data = dgreen)
 
 # # This is the gdd ~ 1|(event) + 1|(Name)
 # modbud2 <- stan_lmer(gdd ~ 1|(event) + 1|(Name), data = dbud)
@@ -168,52 +171,57 @@ modftepalsum4 <- summary(modftepal4, pars = NULL, regex_pars = NULL, probs = c(0
 modltepalsum4 <- summary(modltepal4, pars = NULL, regex_pars = NULL, probs = c(0.1, 0.5, 0.9), digits = 1)
 modgreen4 <- summary(modgreen4, pars = NULL, regex_pars = NULL, probs = c(0.1, 0.5, 0.9), digits = 1)
 
-sink("modelOutputs/modbudsum3.txt")
-modbudsum3
-sink()
+# sink("modelOutputs/modbudsum3.txt")
+# modbudsum3
+# sink()
+# 
+# sink("modelOutputs/modanthesissum3.txt")
+# modanthesissum3
+# sink()
+# 
+# sink("modelOutputs/modpeaksum3.txt")
+# modpeaksum3
+# sink()
+# 
+# sink("modelOutputs/modftepalsum3.txt")
+# modftepalsum3
+# sink()
+# 
+# sink("modelOutputs/modltepalsum3.txt")
+# modltepalsum3
+# sink()
+# 
+# sink("modelOutputs/modgreen3.txt")
+# modgreen3
+# sink()
+# 
+# sink("modelOutputs/modbudsum4.txt")
+# modbudsum4
+# sink()
+# 
+# sink("modelOutputs/modanthesissum4.txt")
+# modanthesissum4
+# sink()
+# 
+# sink("modelOutputs/modpeaksum4.txt")
+# modpeaksum4
+# sink()
+# 
+# sink("modelOutputs/modftepalsum4.txt")
+# modftepalsum4
+# sink()
+# 
+# sink("modelOutputs/modltepalsum4.txt")
+# modltepalsum4
+# sink()
+# 
+# sink("modelOutputs/modgreen4.txt")
+# modgreen4
+# sink()
 
-sink("modelOutputs/modanthesissum3.txt")
-modanthesissum3
-sink()
-
-sink("modelOutputs/modpeaksum3.txt")
-modpeaksum3
-sink()
-
-sink("modelOutputs/modftepalsum3.txt")
-modftepalsum3
-sink()
-
-sink("modelOutputs/modltepalsum3.txt")
-modltepalsum3
-sink()
-
-sink("modelOutputs/modgreen3.txt")
-modgreen3
-sink()
-
-sink("modelOutputs/modbudsum4.txt")
-modbudsum4
-sink()
-
-sink("modelOutputs/modanthesissum4.txt")
-modanthesissum4
-sink()
-
-sink("modelOutputs/modpeaksum4.txt")
-modpeaksum4
-sink()
-
-sink("modelOutputs/modftepalsum4.txt")
-modftepalsum4
-sink()
-
-sink("modelOutputs/modltepalsum4.txt")
-modltepalsum4
-sink()
-
-sink("modelOutputs/modgreen4.txt")
-modgreen4
-sink()
+# Visualizing the summaries
+modbud3.post <- as.array(modbud3)
+dimnames(modbud3.post)
+mcmc_intervals(modbud3.post, pars = vars(1:89))
 
 
