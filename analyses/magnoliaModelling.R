@@ -45,8 +45,8 @@ for(i in c(1:nrow(dmag))) {
 }
 
 # getwd()
-# write.csv(dmag, "analyses/output/magnoliaAll.csv")
-# write.csv(dmag, "analyses/input/magnoliaAll.csv")
+write.csv(dmag, "analyses/output/magnoliaAll.csv")
+write.csv(dmag, "analyses/input/magnoliaAll.csv")
 
 
 # <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
@@ -63,48 +63,48 @@ unique(magd$Name) #53 unique cultivars or species
 unique(magd$event) # 6 event types, but we can remove first green seen because it has very few years of data
 # Therefore approximately 265 unique combinations of event | Name
 
-# subsetting data by the event type
-dbud <- filter(magd, event == "First bud colour")
-danthesis <- filter(magd, event == "First flower fully open")
-dpeak <- filter(magd, event == "Peak bloom")
-dftepal <- filter(magd, event == "First tepal drop")
-dltepal <- filter(magd, event == "Last tepal drop")
-dgreen <- filter(magd, event == "First green seen")
-
-# This is the gdd ~ (1|Name) model structure
-# modbud <- stan_lmer(gdd ~ (1|Name), data = dbud)
-# modanthesis <- stan_lmer(gdd ~ (1|Name), data = danthesis)
-# modpeak <- stan_lmer(gdd ~ (1|Name), data = dpeak)
-# modftepal <- stan_lmer(gdd ~ (1|Name), data = dftepal)
-# modltepal <- stan_lmer(gdd ~ (1|Name), data = dltepal)
-# modgreen <- stan_lmer(gdd ~ (1|Name), data = dgreen)
-
-# # This is the gdd ~ 1|(event) + 1|(Name)
-# modbud2 <- stan_lmer(gdd ~ 1|(event) + 1|(Name), data = dbud)
-# modanthesis2 <- stan_lmer(gdd ~ 1|(event) + 1|(Name), data = danthesis)
-# modpeak2 <- stan_lmer(gdd ~ 1|(event) + 1|(Name), data = dpeak)
-# modftepal2 <- stan_lmer(gdd ~ 1|(event) + 1|(Name), data = dftepal)
-# modltepal2 <- stan_lmer(gdd ~ 1|(event) + 1|(Name), data = dltepal)
-# modgreen2 <- stan_lmer(gdd ~ 1|(event) + 1|(Name), data = dgreen)
-# # Error in model.matrix.default(eval(substitute(~foo, list(foo = x[[2]]))),  : 
-# # model frame and formula mismatch in model.matrix()
+# # subsetting data by the event type
+# dbud <- filter(magd, event == "First bud colour")
+# danthesis <- filter(magd, event == "First flower fully open")
+# dpeak <- filter(magd, event == "Peak bloom")
+# dftepal <- filter(magd, event == "First tepal drop")
+# dltepal <- filter(magd, event == "Last tepal drop")
+# dgreen <- filter(magd, event == "First green seen")
 # 
-# # launch_shinystan(mod1)
-# # Just look up how to do this:
-#   # we have an rstanarm object, go online figure out how to get summary of parameter values for rstanarm objects, rstanarm has a way to do this elegantly
-#   # Print out the output of the parameters for this model
+# # This is the gdd ~ (1|Name) model structure
+# # modbud <- stan_lmer(gdd ~ (1|Name), data = dbud)
+# # modanthesis <- stan_lmer(gdd ~ (1|Name), data = danthesis)
+# # modpeak <- stan_lmer(gdd ~ (1|Name), data = dpeak)
+# # modftepal <- stan_lmer(gdd ~ (1|Name), data = dftepal)
+# # modltepal <- stan_lmer(gdd ~ (1|Name), data = dltepal)
+# # modgreen <- stan_lmer(gdd ~ (1|Name), data = dgreen)
 # 
-# modbudsum <- summary(modbud, pars = NULL, regex_pars = NULL, probs = c(0.1, 0.5, 0.9), digits = 1)
-# modanthesissum <- summary(modanthesis, pars = NULL, regex_pars = NULL, probs = c(0.1, 0.5, 0.9), digits = 1)
-# modpeaksum <- summary(modpeak, pars = NULL, regex_pars = NULL, probs = c(0.1, 0.5, 0.9), digits = 1)
-# modftepalsum <- summary(modftepal, pars = NULL, regex_pars = NULL, probs = c(0.1, 0.5, 0.9), digits = 1)
-# modltepalsum <- summary(modltepal, pars = NULL, regex_pars = NULL, probs = c(0.1, 0.5, 0.9), digits = 1)
-# 
-# modbudsum
-# modanthesissum
-# modpeaksum
-# modftepalsum
-# modltepalsum
+# # # This is the gdd ~ 1|(event) + 1|(Name)
+# # modbud2 <- stan_lmer(gdd ~ 1|(event) + 1|(Name), data = dbud)
+# # modanthesis2 <- stan_lmer(gdd ~ 1|(event) + 1|(Name), data = danthesis)
+# # modpeak2 <- stan_lmer(gdd ~ 1|(event) + 1|(Name), data = dpeak)
+# # modftepal2 <- stan_lmer(gdd ~ 1|(event) + 1|(Name), data = dftepal)
+# # modltepal2 <- stan_lmer(gdd ~ 1|(event) + 1|(Name), data = dltepal)
+# # modgreen2 <- stan_lmer(gdd ~ 1|(event) + 1|(Name), data = dgreen)
+# # # Error in model.matrix.default(eval(substitute(~foo, list(foo = x[[2]]))),  : 
+# # # model frame and formula mismatch in model.matrix()
+# # 
+# # # launch_shinystan(mod1)
+# # # Just look up how to do this:
+# #   # we have an rstanarm object, go online figure out how to get summary of parameter values for rstanarm objects, rstanarm has a way to do this elegantly
+# #   # Print out the output of the parameters for this model
+# # 
+# # modbudsum <- summary(modbud, pars = NULL, regex_pars = NULL, probs = c(0.1, 0.5, 0.9), digits = 1)
+# # modanthesissum <- summary(modanthesis, pars = NULL, regex_pars = NULL, probs = c(0.1, 0.5, 0.9), digits = 1)
+# # modpeaksum <- summary(modpeak, pars = NULL, regex_pars = NULL, probs = c(0.1, 0.5, 0.9), digits = 1)
+# # modftepalsum <- summary(modftepal, pars = NULL, regex_pars = NULL, probs = c(0.1, 0.5, 0.9), digits = 1)
+# # modltepalsum <- summary(modltepal, pars = NULL, regex_pars = NULL, probs = c(0.1, 0.5, 0.9), digits = 1)
+# # 
+# # modbudsum
+# # modanthesissum
+# # modpeaksum
+# # modftepalsum
+# # modltepalsum
 
 # Making a new column to specify species and cultivar name only for the nested structure model
 magd$spName <- magd$Name
@@ -122,8 +122,20 @@ for(i in 1:nrow(magd)){
   }
 }
 
+unique(magd$spName)
+
 magd$cultivarName <- magd$Name
 magd$cultivarName <- sub("^[^\\']*","",magd$cultivarName)
+magd$spName[which(magd$spName == "M  sprengeri ")] <- "M. sprengeri"
+magd$spName[which(magd$spName == "M. sprengeri ")] <- "M. sprengeri"
+magd$spName[which(magd$spName == "M. campbellii ")] <- "M. campbellii"
+magd$spName[which(magd$spName == "M. campbellii (Alba Group) ")] <- "M. campbellii (Alba Group)"
+magd$spName[which(magd$spName == "M. sargentiana (pale flower selection ex. ")] <- "M. sargentiana (pale flower selection ex.)"
+magd$spName[which(magd$spName == "M. campbellii subsp. mollicomata ")] <- "M. campbellii subsp. mollicomata"
+magd$spName[which(magd$spName == "M. campbellii subsp. campbellii ")] <- "M. campbellii subsp. campbellii"
+magd$spName[which(magd$spName == "M. denudata ")] <- "M. denudata"
+magd$spName[which(magd$spName == "M. sargentiana ")] <- "M. sargentiana"
+magd$spName[which(magd$spName == "M. dawsoniana ")] <- "M. dawsoniana"
 
 # Now giving the empty values (true species) their own identifier
 for(i in 1:nrow(magd)){
@@ -222,6 +234,7 @@ modgreen4 <- summary(modgreen4, pars = NULL, regex_pars = NULL, probs = c(0.1, 0
 # Visualizing the summaries
 modbud3.post <- as.array(modbud3)
 dimnames(modbud3.post)
-mcmc_intervals(modbud3.post, pars = vars(1:89))
+mcmc_intervals(modbud3.post, pars = vars(1:81))
 
+modbudsum3
 
