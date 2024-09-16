@@ -436,8 +436,11 @@ d <- d %>%
 d %>%
   ggplot(aes(x = date,
              y = gddAccumulate)) +
-  geom_point(colour = "#a3152b") +
+  geom_col(fill = "#a3152b") +
   labs(x = "Day of year",
        y = "GDD accumulation") +
   theme_clean()
+  
+
+
   
