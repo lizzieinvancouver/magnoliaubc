@@ -245,23 +245,23 @@ modltepalsum3 <- summary(modltepal3, pars = NULL, regex_pars = NULL, probs = c(0
 # Visualizing the summaries
 modbud3.post <- as.array(modbud3)
 dimnames(modbud3.post)
-mcmc_intervals(modbud3.post, pars = vars(1:79))
+mcmc_intervals(modbud3.post, pars = vars(1:78))
 
 modanthesis3.post <- as.array(modanthesis3)
 dimnames(modanthesis3.post)
-mcmc_intervals(modanthesis3.post, pars = vars(1:75))
+mcmc_intervals(modanthesis3.post, pars = vars(1:74))
 
 modpeak3.post <- as.array(modpeak3)
 dimnames(modpeak3.post)
-mcmc_intervals(modpeak3.post, pars = vars(1:73))
+mcmc_intervals(modpeak3.post, pars = vars(1:72))
 
 modftepal3.post <- as.array(modftepal3)
 dimnames(modftepal3.post)
-mcmc_intervals(modftepal3.post, pars = vars(1:74))
+mcmc_intervals(modftepal3.post, pars = vars(1:73))
 
 modltepal3.post <- as.array(modltepal3)
 dimnames(modltepal3.post)
-mcmc_intervals(modltepal3.post, pars = vars(1:75))
+mcmc_intervals(modltepal3.post, pars = vars(1:74))
 
 # ONLY SPECIES
 modbud3.post <- as.array(modbud3)
@@ -289,98 +289,100 @@ sort(unique(magd$Name))
 # Species vary with a variance of this much...that's the last parameter here
 # Can divide it up into species, subspecies, and then cultivar, and if the subspecies are super similar leave them in as cultivars
 
-# Write up
-# First paragraph like what's interseting about this dataset, things we might wanna learn about climate and its effects on magnolias, variation in the GDD of the events, and then the two models, and then also show the climate data...we wouldn't expect change from this...briefly mention the linear regression of warming over time...since there's no changes in the temperatuer maybe we look at gdds, and then description of the data
+# Writing csv for the gdd/doy over year plotting script
+write.csv(magd, "analyses/input/magnoliaPlotting.csv")
+write.csv(magd, "analyses/output/magnoliaPlotting.csv")
+
 
 # install.packages("tidybayes")
 # install.packages("ggplot2")
 library(tidybayes)
 
-spread_draws(modbud3, draw_indices = c("(Intercept)",
-                "b[(Intercept) cultivarName:spName:Alba):M._sargentiana_(pale_flower_selection_ex.)]",
-                "b[(Intercept) cultivarName:spName:Barbara_Cook:M._dawsoniana]",
-                "b[(Intercept) cultivarName:spName:Betty_Jessel:M._campbellii_subsp._campbellii]",
-                "b[(Intercept) cultivarName:spName:Blood_Moon:M._sargentiana]",
-                "b[(Intercept) cultivarName:spName:Blood_Moon_on_M._sprengeri:M._sargentiana]",
-                "b[(Intercept) cultivarName:spName:Borde_Hill:M._campbellii]",
-                "b[(Intercept) cultivarName:spName:Borde_Hill:M._campbellii_subsp._mollicomata]",
-                "b[(Intercept) cultivarName:spName:Chyverton_Dark:M._sargentiana]",
-                "b[(Intercept) cultivarName:spName:Chyverton_Red:M._dawsoniana]",
-                "b[(Intercept) cultivarName:spName:Chyverton_Red__(ex._Chyverton):M._dawsoniana]",
-                "b[(Intercept) cultivarName:spName:Claret_Cup:M._sprengeri]",
-                "b[(Intercept) cultivarName:spName:Clark:M._dawsoniana]",
-                "b[(Intercept) cultivarName:spName:Clarke:M._dawsoniana]",
-                "b[(Intercept) cultivarName:spName:Copeland_Court:M._sprengeri]",
-                "b[(Intercept) cultivarName:spName:Diva:M._sprengeri]",
-                "b[(Intercept) cultivarName:spName:Eric_Savill:M._sprengeri]",
-                "b[(Intercept) cultivarName:spName:Ethel_Hillier:M._campbellii]",
-                "b[(Intercept) cultivarName:spName:Ethel_Hillier:M._campbellii_(Alba_Group)]",
-                "b[(Intercept) cultivarName:spName:Forrests_Pink:M._denudata]",
-                "b[(Intercept) cultivarName:spName:Japanese_Clone:M._denudata]",
-                "b[(Intercept) cultivarName:spName:Lanarth:M._campbellii]",
-                "b[(Intercept) cultivarName:spName:Lanarth:M._campbellii_subsp._mollicomata]",
-                "b[(Intercept) cultivarName:spName:Landicla:M._campbellii]",
-                "b[(Intercept) cultivarName:spName:Wadas_Japanese_Clone:M._denudata]",
-                "b[(Intercept) cultivarName:spName:Wakehurst:M._sprengeri]",
-                "b[(Intercept) cultivarName:spName:Wakehurst_A.M.:M._sprengeri]",
-                "b[(Intercept) cultivarName:spName:botanical_species:M._amoena]",
-                "b[(Intercept) cultivarName:spName:botanical_species:M._biondii]",
-                "b[(Intercept) cultivarName:spName:botanical_species:M._campbellii]",
-                "b[(Intercept) cultivarName:spName:botanical_species:M._campbellii_(deep_pink_form)]",
-                "b[(Intercept) cultivarName:spName:botanical_species:M._campbellii_(F.C.C._form)]",
-                "b[(Intercept) cultivarName:spName:botanical_species:M._campbellii_(hybrid)]",
-                "b[(Intercept) cultivarName:spName:botanical_species:M._campbellii_subsp._mollicomata]",
-                "b[(Intercept) cultivarName:spName:botanical_species:M._cavaleriei_var._platypetala]",
-                "b[(Intercept) cultivarName:spName:botanical_species:M._chevalieri]",
-                "b[(Intercept) cultivarName:spName:botanical_species:M._conifera]",
-                "b[(Intercept) cultivarName:spName:botanical_species:M._cylindrica]",
-                "b[(Intercept) cultivarName:spName:botanical_species:M._dawsoniana]",
-                "b[(Intercept) cultivarName:spName:botanical_species:M._denudata]",
-                "b[(Intercept) cultivarName:spName:botanical_species:M._laevifolia]",
-                "b[(Intercept) cultivarName:spName:botanical_species:M._maudiae]",
-                "b[(Intercept) cultivarName:spName:botanical_species:M._maudiae_var._platypetala]",
-                "b[(Intercept) cultivarName:spName:botanical_species:M._officinalis_biloba]",
-                "b[(Intercept) cultivarName:spName:botanical_species:M._sapaensis]",
-                "b[(Intercept) cultivarName:spName:botanical_species:M._sargentiana]",
-                "b[(Intercept) cultivarName:spName:botanical_species:M._sargentiana_(ex._var._robusta)]",
-                "b[(Intercept) cultivarName:spName:botanical_species:M._sprengeri]",
-                "b[(Intercept) cultivarName:spName:botanical_species:M._stellata]",
-                "b[(Intercept) cultivarName:spName:botanical_species:M._zenii]",
-                "b[(Intercept) cultivarName:spName:botanical_species:M._zenii_(clone_no._1)]",
-                "b[(Intercept) spName:M._amoena]",
-                "b[(Intercept) spName:M._biondii]",
-                "b[(Intercept) spName:M._campbellii]",
-                "b[(Intercept) spName:M._campbellii_(Alba_Group)]",
-                "b[(Intercept) spName:M._campbellii_(deep_pink_form)]",
-                "b[(Intercept) spName:M._campbellii_(F.C.C._form)]",
-                "b[(Intercept) spName:M._campbellii_(hybrid)]",
-                "b[(Intercept) spName:M._campbellii_subsp._campbellii]",
-                "b[(Intercept) spName:M._campbellii_subsp._mollicomata]",
-                "b[(Intercept) spName:M._cavaleriei_var._platypetala]",
-                "b[(Intercept) spName:M._chevalieri]",
-                "b[(Intercept) spName:M._conifera]",
-                "b[(Intercept) spName:M._cylindrica]",
-                "b[(Intercept) spName:M._dawsoniana]",
-                "b[(Intercept) spName:M._denudata]",
-                "b[(Intercept) spName:M._laevifolia]",
-                "b[(Intercept) spName:M._maudiae]",
-                "b[(Intercept) spName:M._maudiae_var._platypetala]",
-                "b[(Intercept) spName:M._officinalis_biloba]",
-                "b[(Intercept) spName:M._sapaensis]",
-                "b[(Intercept) spName:M._sargentiana]",
-                "b[(Intercept) spName:M._sargentiana_(ex._var._robusta)]",
-                "b[(Intercept) spName:M._sargentiana_(pale_flower_selection_ex.)]",
-                "b[(Intercept) spName:M._sprengeri]",
-                "b[(Intercept) spName:M._stellata]",
-                "b[(Intercept) spName:M._zenii]",
-                "b[(Intercept) spName:M._zenii_(clone_no._1)]",
-                "sigma"))
-
-spread_draws(model = modbud3,
-             #dimensions ???
-             )
-
-dimnames(modbud3.post)
+# spread_draws(modbud3, draw_indices = c("(Intercept)",
+#                 "b[(Intercept) cultivarName:spName:Alba):M._sargentiana_(pale_flower_selection_ex.)]",
+#                 "b[(Intercept) cultivarName:spName:Barbara_Cook:M._dawsoniana]",
+#                 "b[(Intercept) cultivarName:spName:Betty_Jessel:M._campbellii_subsp._campbellii]",
+#                 "b[(Intercept) cultivarName:spName:Blood_Moon:M._sargentiana]",
+#                 "b[(Intercept) cultivarName:spName:Blood_Moon_on_M._sprengeri:M._sargentiana]",
+#                 "b[(Intercept) cultivarName:spName:Borde_Hill:M._campbellii]",
+#                 "b[(Intercept) cultivarName:spName:Borde_Hill:M._campbellii_subsp._mollicomata]",
+#                 "b[(Intercept) cultivarName:spName:Chyverton_Dark:M._sargentiana]",
+#                 "b[(Intercept) cultivarName:spName:Chyverton_Red:M._dawsoniana]",
+#                 "b[(Intercept) cultivarName:spName:Chyverton_Red__(ex._Chyverton):M._dawsoniana]",
+#                 "b[(Intercept) cultivarName:spName:Claret_Cup:M._sprengeri]",
+#                 "b[(Intercept) cultivarName:spName:Clark:M._dawsoniana]",
+#                 "b[(Intercept) cultivarName:spName:Clarke:M._dawsoniana]",
+#                 "b[(Intercept) cultivarName:spName:Copeland_Court:M._sprengeri]",
+#                 "b[(Intercept) cultivarName:spName:Diva:M._sprengeri]",
+#                 "b[(Intercept) cultivarName:spName:Eric_Savill:M._sprengeri]",
+#                 "b[(Intercept) cultivarName:spName:Ethel_Hillier:M._campbellii]",
+#                 "b[(Intercept) cultivarName:spName:Ethel_Hillier:M._campbellii_(Alba_Group)]",
+#                 "b[(Intercept) cultivarName:spName:Forrests_Pink:M._denudata]",
+#                 "b[(Intercept) cultivarName:spName:Japanese_Clone:M._denudata]",
+#                 "b[(Intercept) cultivarName:spName:Lanarth:M._campbellii]",
+#                 "b[(Intercept) cultivarName:spName:Lanarth:M._campbellii_subsp._mollicomata]",
+#                 "b[(Intercept) cultivarName:spName:Landicla:M._campbellii]",
+#                 "b[(Intercept) cultivarName:spName:Wadas_Japanese_Clone:M._denudata]",
+#                 "b[(Intercept) cultivarName:spName:Wakehurst:M._sprengeri]",
+#                 "b[(Intercept) cultivarName:spName:Wakehurst_A.M.:M._sprengeri]",
+#                 "b[(Intercept) cultivarName:spName:botanical_species:M._amoena]",
+#                 "b[(Intercept) cultivarName:spName:botanical_species:M._biondii]",
+#                 "b[(Intercept) cultivarName:spName:botanical_species:M._campbellii]",
+#                 "b[(Intercept) cultivarName:spName:botanical_species:M._campbellii_(deep_pink_form)]",
+#                 "b[(Intercept) cultivarName:spName:botanical_species:M._campbellii_(F.C.C._form)]",
+#                 "b[(Intercept) cultivarName:spName:botanical_species:M._campbellii_(hybrid)]",
+#                 "b[(Intercept) cultivarName:spName:botanical_species:M._campbellii_subsp._mollicomata]",
+#                 "b[(Intercept) cultivarName:spName:botanical_species:M._cavaleriei_var._platypetala]",
+#                 "b[(Intercept) cultivarName:spName:botanical_species:M._chevalieri]",
+#                 "b[(Intercept) cultivarName:spName:botanical_species:M._conifera]",
+#                 "b[(Intercept) cultivarName:spName:botanical_species:M._cylindrica]",
+#                 "b[(Intercept) cultivarName:spName:botanical_species:M._dawsoniana]",
+#                 "b[(Intercept) cultivarName:spName:botanical_species:M._denudata]",
+#                 "b[(Intercept) cultivarName:spName:botanical_species:M._laevifolia]",
+#                 "b[(Intercept) cultivarName:spName:botanical_species:M._maudiae]",
+#                 "b[(Intercept) cultivarName:spName:botanical_species:M._maudiae_var._platypetala]",
+#                 "b[(Intercept) cultivarName:spName:botanical_species:M._officinalis_biloba]",
+#                 "b[(Intercept) cultivarName:spName:botanical_species:M._sapaensis]",
+#                 "b[(Intercept) cultivarName:spName:botanical_species:M._sargentiana]",
+#                 "b[(Intercept) cultivarName:spName:botanical_species:M._sargentiana_(ex._var._robusta)]",
+#                 "b[(Intercept) cultivarName:spName:botanical_species:M._sprengeri]",
+#                 "b[(Intercept) cultivarName:spName:botanical_species:M._stellata]",
+#                 "b[(Intercept) cultivarName:spName:botanical_species:M._zenii]",
+#                 "b[(Intercept) cultivarName:spName:botanical_species:M._zenii_(clone_no._1)]",
+#                 "b[(Intercept) spName:M._amoena]",
+#                 "b[(Intercept) spName:M._biondii]",
+#                 "b[(Intercept) spName:M._campbellii]",
+#                 "b[(Intercept) spName:M._campbellii_(Alba_Group)]",
+#                 "b[(Intercept) spName:M._campbellii_(deep_pink_form)]",
+#                 "b[(Intercept) spName:M._campbellii_(F.C.C._form)]",
+#                 "b[(Intercept) spName:M._campbellii_(hybrid)]",
+#                 "b[(Intercept) spName:M._campbellii_subsp._campbellii]",
+#                 "b[(Intercept) spName:M._campbellii_subsp._mollicomata]",
+#                 "b[(Intercept) spName:M._cavaleriei_var._platypetala]",
+#                 "b[(Intercept) spName:M._chevalieri]",
+#                 "b[(Intercept) spName:M._conifera]",
+#                 "b[(Intercept) spName:M._cylindrica]",
+#                 "b[(Intercept) spName:M._dawsoniana]",
+#                 "b[(Intercept) spName:M._denudata]",
+#                 "b[(Intercept) spName:M._laevifolia]",
+#                 "b[(Intercept) spName:M._maudiae]",
+#                 "b[(Intercept) spName:M._maudiae_var._platypetala]",
+#                 "b[(Intercept) spName:M._officinalis_biloba]",
+#                 "b[(Intercept) spName:M._sapaensis]",
+#                 "b[(Intercept) spName:M._sargentiana]",
+#                 "b[(Intercept) spName:M._sargentiana_(ex._var._robusta)]",
+#                 "b[(Intercept) spName:M._sargentiana_(pale_flower_selection_ex.)]",
+#                 "b[(Intercept) spName:M._sprengeri]",
+#                 "b[(Intercept) spName:M._stellata]",
+#                 "b[(Intercept) spName:M._zenii]",
+#                 "b[(Intercept) spName:M._zenii_(clone_no._1)]",
+#                 "sigma"))
+# 
+# spread_draws(model = modbud3,
+#              #dimensions ???
+#              )
+# 
+# dimnames(modbud3.post)
 
 # Adding intercept to the parameters through an ugly and inefficient method that does not conserve the variability
 budtable <- as.data.frame.table(modbud3.post) %>%
@@ -558,6 +560,14 @@ ltepaltable %>%
   theme(legend.position = "none") +
   scale_y_discrete(limits=rev)
 
+
+# Launching shinystan to get parameter values
+launch_shinystan(modbud3)
+launch_shinystan(modanthesis3)
+launch_shinystan(modpeak3)
+launch_shinystan(modftepal3)
+launch_shinystan(modltepal3)
+
 # <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
 # <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
 # For other sections of the report, esp. earlier where we go over whether or not weather is changing etc.
@@ -610,3 +620,8 @@ dtemp %>%
   labs(x = "Day of year",
        y = "GDD accumulation") +
   theme_clean()
+
+
+
+
+
